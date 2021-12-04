@@ -1,6 +1,3 @@
-D:\Chunithm Paradise\Game\app\bin\Chunithm Launcher.exe.config
-D:\Chunithm Paradise\Game\app\bin\Chunithm Launcher.exe
-D:\Chunithm Paradise\Game\app\bin\Chunithm Launcher.pdb
 C:\Users\gnarg\source\repos\Chunithm launcher\Chunithm Launcher\obj\Debug\Chunithm_Launcher.Form1.resources
 C:\Users\gnarg\source\repos\Chunithm launcher\Chunithm Launcher\obj\Debug\CHuniLaunch.csproj.GenerateResource.cache
 C:\Users\gnarg\source\repos\Chunithm launcher\Chunithm Launcher\obj\Debug\CHuniLaunch.csproj.CoreCompileInputs.cache
@@ -10,3 +7,13 @@ C:\Users\gnarg\source\repos\Chunithm launcher\Chunithm Launcher\bin\debug\ChuniL
 C:\Users\gnarg\source\repos\Chunithm launcher\Chunithm Launcher\obj\Debug\ChuniLaunch.Properties.Resources.resources
 C:\Users\gnarg\source\repos\Chunithm launcher\Chunithm Launcher\obj\Debug\ChuniLaunch.exe
 C:\Users\gnarg\source\repos\Chunithm launcher\Chunithm Launcher\obj\Debug\ChuniLaunch.pdb
+D:\Chunithm Paradise\Game\app\bin\ChuniLaunch.exe.config
+D:\Chunithm Paradise\Game\app\bin\ChuniLaunch.exe
+D:\Chunithm Paradise\Game\app\bin\ChuniLaunch.pdb
+C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.csproj.AssemblyReference.cache
+C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.Form1.resources
+C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.Properties.Resources.resources
+C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.csproj.GenerateResource.cache
+C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.csproj.CoreCompileInputs.cache
+C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.exe
+C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.pdb
