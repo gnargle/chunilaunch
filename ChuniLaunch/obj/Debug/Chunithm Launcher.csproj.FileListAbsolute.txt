@@ -1,0 +1,10 @@
+D:\Chunithm Paradise\Game\app\bin\Chunithm Launcher.exe.config
+D:\Chunithm Paradise\Game\app\bin\Chunithm Launcher.exe
+D:\Chunithm Paradise\Game\app\bin\Chunithm Launcher.pdb
+C:\Users\gnarg\source\repos\Chunithm Launcher\Chunithm Launcher\obj\Debug\Chunithm Launcher.csproj.AssemblyReference.cache
+C:\Users\gnarg\source\repos\Chunithm Launcher\Chunithm Launcher\obj\Debug\Chunithm_Launcher.Form1.resources
+C:\Users\gnarg\source\repos\Chunithm Launcher\Chunithm Launcher\obj\Debug\Chunithm_Launcher.Properties.Resources.resources
+C:\Users\gnarg\source\repos\Chunithm Launcher\Chunithm Launcher\obj\Debug\Chunithm Launcher.csproj.GenerateResource.cache
+C:\Users\gnarg\source\repos\Chunithm Launcher\Chunithm Launcher\obj\Debug\Chunithm Launcher.csproj.CoreCompileInputs.cache
+C:\Users\gnarg\source\repos\Chunithm Launcher\Chunithm Launcher\obj\Debug\Chunithm Launcher.exe
+C:\Users\gnarg\source\repos\Chunithm Launcher\Chunithm Launcher\obj\Debug\Chunithm Launcher.pdb
