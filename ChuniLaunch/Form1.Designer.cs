@@ -54,6 +54,7 @@ namespace ChuniLaunch {
             this.bLaunch = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.cbEnableChunitachi = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -88,6 +89,7 @@ namespace ChuniLaunch {
             this.flowLayoutPanel1.Controls.Add(this.rbRemoteProfile);
             this.flowLayoutPanel1.Controls.Add(this.rbLocalProfile);
             this.flowLayoutPanel1.Controls.Add(this.cbWindowedMode);
+            this.flowLayoutPanel1.Controls.Add(this.cbEnableChunitachi);
             this.flowLayoutPanel1.Controls.Add(this.bLaunch);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -326,6 +328,17 @@ namespace ChuniLaunch {
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Batch Files|*.bat|All files| *.*";
             // 
+            // cbEnableChunitachi
+            // 
+            this.cbEnableChunitachi.AutoSize = true;
+            this.cbEnableChunitachi.Location = new System.Drawing.Point(309, 196);
+            this.cbEnableChunitachi.Name = "cbEnableChunitachi";
+            this.cbEnableChunitachi.Size = new System.Drawing.Size(112, 17);
+            this.cbEnableChunitachi.TabIndex = 19;
+            this.cbEnableChunitachi.Text = "Enable Chunitachi";
+            this.cbEnableChunitachi.UseVisualStyleBackColor = true;
+            this.cbEnableChunitachi.CheckedChanged += new System.EventHandler(this.cbEnableChunitachi_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,6 +393,7 @@ namespace ChuniLaunch {
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbLocalFelica;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.CheckBox cbEnableChunitachi;
     }
 }
 

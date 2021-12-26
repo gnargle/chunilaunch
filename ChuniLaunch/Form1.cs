@@ -47,6 +47,7 @@ namespace ChuniLaunch {
             chuniBatchLoc = ini.Read("chuniBatch");
             tbChuni.Text = chuniBatchLoc;
             cbWindowedMode.Checked = ini.Read("windowed") != "0";
+            cbEnableChunitachi.Checked = ini.Read("chunitachi") != "0";
 
             remoteServerAddress = ini.Read("remoteServer");
             tbRemoteAddress.Text = remoteServerAddress;
@@ -151,6 +152,37 @@ namespace ChuniLaunch {
             if (ini != null) {
                 localFelica = tbLocalFelica.Text;
                 ini.Write("localFelica", localFelica);
+            }
+        }
+
+        private void cbEnableChunitachi_CheckedChanged(object sender, EventArgs e) {
+            if (ini != null) {
+                var chuniBatch = File.ReadAllLines(chuniBatchLoc);
+                for(int i = 0; i<= chuniBatch.Count() - 1; i++) {
+                    var line = chuniBatch[i];
+                    if (line.Contains("chuniApp")) {
+                        if (cbEnableChunitachi.Checked) {
+                            line = "start / high / affinity f0 inject -d - k chunihook.dll - k ChunItachi.dll chuniApp.exe";
+                        } else {
+                            line = "start / high / affinity f0 inject -d - k chunihook.dll chuniApp.exe";
+                        }
+                        chuniBatch[i] = line;
+                        File.WriteAllLines(chuniBatchLoc, chuniBatch);
+                        break;
+                    }
+                    //futureproofing ;)
+                    if (line.Contains("chusanApp")) {
+                        if (cbEnableChunitachi.Checked) {
+                            line = "start / high / affinity f0 inject -d - k chusanhook.dll - k ChunItachi.dll chusanApp.exe";
+                        } else {
+                            line = "start / high / affinity f0 inject -d - k chusanhook.dll chusanApp.exe";
+                        }
+                        chuniBatch[i] = line;
+                        File.WriteAllLines(chuniBatchLoc, chuniBatch);
+                        break;
+                    }
+                }
+                ini.Write("chunitachi", cbEnableChunitachi.Checked ? "1" : "0");
             }
         }
     }
