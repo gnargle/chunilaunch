@@ -18,9 +18,10 @@ C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.
 C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.exe
 C:\Users\gnarg\source\repos\Chunithm launcher\ChuniLaunch\obj\Debug\ChuniLaunch.pdb
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.csproj.AssemblyReference.cache
-E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.Form1.resources
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.Properties.Resources.resources
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.csproj.GenerateResource.cache
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.csproj.CoreCompileInputs.cache
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.exe
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.pdb
+E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.MainWindow.resources
+E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.SliderTestWindow.resources
