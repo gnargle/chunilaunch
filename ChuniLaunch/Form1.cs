@@ -162,9 +162,9 @@ namespace ChuniLaunch {
                     var line = chuniBatch[i];
                     if (line.Contains("chuniApp")) {
                         if (cbEnableChunitachi.Checked) {
-                            line = "start / high / affinity f0 inject -d - k chunihook.dll - k ChunItachi.dll chuniApp.exe";
+                            line = "start /high /affinity f0 inject -d -k chunihook.dll -k ChunItachi.dll chuniApp.exe";
                         } else {
-                            line = "start / high / affinity f0 inject -d - k chunihook.dll chuniApp.exe";
+                            line = "start /high /affinity f0 inject -d -k chunihook.dll chuniApp.exe";
                         }
                         chuniBatch[i] = line;
                         File.WriteAllLines(chuniBatchLoc, chuniBatch);
@@ -173,9 +173,9 @@ namespace ChuniLaunch {
                     //futureproofing ;)
                     if (line.Contains("chusanApp")) {
                         if (cbEnableChunitachi.Checked) {
-                            line = "start / high / affinity f0 inject -d - k chusanhook.dll - k ChunItachi.dll chusanApp.exe";
+                            line = "start /high /affinity f0 inject -d -k chusanhook.dll -k ChunItachi.dll chusanApp.exe";
                         } else {
-                            line = "start / high / affinity f0 inject -d - k chusanhook.dll chusanApp.exe";
+                            line = "start /high /affinity f0 inject -d -k chusanhook.dll chusanApp.exe";
                         }
                         chuniBatch[i] = line;
                         File.WriteAllLines(chuniBatchLoc, chuniBatch);
