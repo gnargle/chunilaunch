@@ -101,7 +101,7 @@ namespace ChuniLaunch {
             this.flpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpMain.Location = new System.Drawing.Point(0, 0);
             this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(484, 318);
+            this.flpMain.Size = new System.Drawing.Size(484, 331);
             this.flpMain.TabIndex = 1;
             // 
             // label1
@@ -422,7 +422,7 @@ namespace ChuniLaunch {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 318);
+            this.ClientSize = new System.Drawing.Size(484, 331);
             this.Controls.Add(this.flpMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
