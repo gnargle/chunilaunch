@@ -59,6 +59,12 @@
     <Compile Include="IniFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AimeTestWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AimeTestWindow.Designer.cs">
+      <DependentUpon>AimeTestWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="SliderTestWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="AimeTestWindow.resx">
+      <DependentUpon>AimeTestWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SliderTestWindow.resx">
       <DependentUpon>SliderTestWindow.cs</DependentUpon>
     </EmbeddedResource>

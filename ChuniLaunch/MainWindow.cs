@@ -48,6 +48,7 @@ namespace ChuniLaunch {
             cbWindowedMode.Checked = CheckIniBool("windowed");
             cbEnableChunitachi.Checked = CheckIniBool("chunitachi");
             cbEnableSliderEmu.Checked = CheckIniBool("slideremu");
+            cbAimeEmulation.Checked = CheckIniBool("aimeemu");
 
             remoteServerAddress = ini.Read("remoteServer");
             tbRemoteAddress.Text = remoteServerAddress;
@@ -225,6 +226,22 @@ namespace ChuniLaunch {
         private void bTestACSlider_Click(object sender, EventArgs e) {
             //open new modal window and run (a port of) Red's test code.
             var testWnd = new SliderTestWindow();            
+            testWnd.ShowDialog();
+            testWnd.Close();
+        }
+
+        private void cbAimeEmulation_CheckedChanged(object sender, EventArgs e) {
+            if (ini != null) {
+                var SegaToolsIni = new IniFile("segatools.ini");
+                SegaToolsIni.Write("enable", cbAimeEmulation.Checked ? "1" : "0", "aime");
+                ini.Write("aimeemu", cbAimeEmulation.Checked ? "1" : "0");
+            }
+            bTestAimeReader.Enabled = !cbAimeEmulation.Checked;
+        }
+
+        private void bTestAimeReader_Click(object sender, EventArgs e) {
+            //open new modal window and run tesst code for slider
+            var testWnd = new AimeTestWindow();
             testWnd.ShowDialog();
             testWnd.Close();
         }
