@@ -42,9 +42,9 @@ namespace ChuniLaunch {
             // bClose
             // 
             this.bClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bClose.Location = new System.Drawing.Point(50, 47);
+            this.bClose.Location = new System.Drawing.Point(17, 89);
             this.bClose.Name = "bClose";
-            this.bClose.Size = new System.Drawing.Size(75, 23);
+            this.bClose.Size = new System.Drawing.Size(297, 23);
             this.bClose.TabIndex = 1;
             this.bClose.Text = "Close";
             this.bClose.UseVisualStyleBackColor = true;
@@ -53,7 +53,7 @@ namespace ChuniLaunch {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(192, 82);
+            this.ClientSize = new System.Drawing.Size(326, 124);
             this.Controls.Add(this.bClose);
             this.Controls.Add(this.lbStatusText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -8,8 +8,19 @@ namespace ChuniLaunch {
     public partial class AimeTestWindow : Form {
         private SerialPort serialPort;
         private bool active = true;
-        private const byte AIME_ESCAPE = 0xd0;
         private byte _seq;
+        private int currCol = 0;
+        private bool rainbowDir = true;
+
+        private const byte AIME_ESCAPE = 0xd0;
+        private const byte RESET_CMD = 0x62;
+        private const byte LED_CMD = 0x81;
+        private const byte FELICA_CMD = 0x42;
+        private const byte UNK_CARD_CMD_1 = 0x40;
+        private const byte UNK_CARD_CMD_2 = 0x42;
+        private const byte UNK_1 = 0x00;
+        private const byte UNK_2 = 0x08;
+
         private byte seqnum {
             get {
                 return _seq;
@@ -132,30 +143,101 @@ namespace ChuniLaunch {
         }
 
         private bool ReaderInit(IProgress<string> progress) {
-            SendCommand(0x00, 0x62, new byte[] { 0x00 });
-            //SendCommand(new byte[] { 0xE0, 0x05, 0x00, 0x01, 0x62, 0x00 }); //reset
+            SendCommand(UNK_1, RESET_CMD, new byte[] { 0x00 });
             var returnedCom = ReadSerial();
 
-            if (returnedCom.command == 0x62 && returnedCom.data.SequenceEqual(new byte[] { 0x03, 0x00 })) { //reset is ok response
+            if (returnedCom.command == RESET_CMD && returnedCom.data.SequenceEqual(new byte[] { 0x03, 0x00 })) { //reset is ok response
                 progress.Report("Reset OK");
             } else {
                 progress.Report("Reset not OK");
                 return false;
             }
-            return false;
+            return true;
+        }
 
-            // SendCommand(new byte[] { 0xE0, 0x05, 0x00, 0x02, 0x30, 0x00, });
-            /* returnedCom = new byte[08];
+        private void LEDRainbow() {
+            //because you gotta have fun stuff.
+            var frequency = 0.3;
+            byte red = (byte)(Math.Sin(frequency * currCol + 0) * 127 + 128);
+            byte green = (byte)(Math.Sin(frequency * currCol + 4) * 127 + 128);
+            byte blue = (byte)(Math.Sin(frequency * currCol + 2) * 127 + 128);
+            SendLED(red, green, blue);
+            if (rainbowDir)
+                currCol++;
+            else
+                currCol--;
+            if (currCol == 31 || currCol == 0) rainbowDir = !rainbowDir;
+        }
 
-             returnedCom = ReadTotalLength(returnedCom, returnedCom.Length);
 
-             if (returnedCom.SequenceEqual(new byte[] { 0xFF, 0xF0, 0x12, 0x31, 0x35, 0x33, 0x33, 0x30, 0x20, 0x20, 0x20, 0xA0, 0x30, 0x36, 0x37, 0x31, 0x32, 0xFD, 0xFE, 0x90, 0x00, 0x64 })) {
-                 progress.Report("HW Info OK");
-                 return true;
-             } else {
-                 progress.Report("HW Info not OK");
-                 return false;
-             }*/
+        private void ReadCard(IProgress<string> progress) {
+            //seemingly relevant commands - 40,41,42.        
+            //command 42, data 00            
+            SendCommand(UNK_1, FELICA_CMD, new byte[] { 0x00 });
+            var resp = ReadSerial();
+            if (resp.command == FELICA_CMD && !resp.data.SequenceEqual(new byte[] { 0x00, 0x01, 0x00 })) {
+                //card of some type 1 found, read card data and talk to reader.
+                
+                //first five bytes are something else, then you have 8 bytes which are the cards Identifier.
+                var cardId = resp.data.Skip(5).Take(8).ToArray();
+                var cardStr = BitConverter.ToString(cardId).Replace("-", string.Empty);
+                progress.Report($"Card Found!\n\rCard ID: {cardStr}");
+                SendLED(0, 0, 0xff);
+                System.Threading.Thread.Sleep(1000);
+                return;
+            }
+            //command 41, data 00
+            SendCommand(UNK_1, UNK_CARD_CMD_2, new byte[] { 0x00 });
+            resp = ReadSerial();
+            if (resp.command == UNK_CARD_CMD_2 && !resp.data.SequenceEqual(new byte[] { 0x00, 0x01, 0x00 })) {
+                //card of some type 1 found, read card data and talk to reader.
+                progress.Report("Card Found!");
+                SendLED(0, 0, 0xff);
+                System.Threading.Thread.Sleep(1000);
+                return;
+            }
+            //data seems to send command 40, then data 01 03.
+            SendCommand(UNK_1, UNK_CARD_CMD_1, new byte[] { 0x01, 0x03 });
+            resp = ReadSerial();
+            if (resp.command == UNK_CARD_CMD_1 && !resp.data.SequenceEqual(new byte[] { 0x00, 0x00 })) {
+                //card of some type 1 found, read card data and talk to reader.
+                progress.Report("Card Found!");
+                SendLED(0, 0, 0xff);
+                System.Threading.Thread.Sleep(1000);
+                return;
+            }
+            progress.Report("Card not found.");
+            LEDRainbow();
+            System.Threading.Thread.Sleep(500); //pause or we don't get the data
+            //and repeat
+            //this appears to be checking for 3 different types of cards. 
+            //each of these commands appears to have a unique unk, which I guess is a secondary command byte...
+        }
+
+        private void SendLED(byte red, byte green, byte blue) {
+            byte command = LED_CMD;
+            byte[] data = new byte[] { 0x03 }; //always starts with 03 for some reason. Then followed by 3 bytes of rgb value.
+            data = data.Append(red).ToArray();
+            data = data.Append(blue).ToArray();
+            data = data.Append(green).ToArray();
+            SendCommand(UNK_2, command, data); //unk is 08 for this one.
+        }
+
+        private void LEDTest(IProgress<string> progress) {
+            progress.Report("Red LEDs");
+            SendLED(0xff, 0, 0);
+            System.Threading.Thread.Sleep(1000);
+            progress.Report("Blue LEDs");
+            SendLED(0, 0xff, 0);
+            System.Threading.Thread.Sleep(1000);
+            progress.Report("Green LEDs");
+            SendLED(0, 0, 0xff);
+            System.Threading.Thread.Sleep(1000);
+            progress.Report("White LEDs");
+            SendLED(0xff, 0xff, 0xff);
+            System.Threading.Thread.Sleep(1000);
+            progress.Report("LEDs off");
+            SendLED(0, 0, 0);
         }
 
         private void aimeTask(IProgress<string> progress) {
@@ -166,7 +248,11 @@ namespace ChuniLaunch {
             serialPort.ReadTimeout = 3000;
             serialPort.Open();
             if (ReaderInit(progress)) {
-
+                LEDTest(progress);
+                while (active) {
+                    ReadCard(progress); 
+                }
+                serialPort.Close();
             } else {
                 serialPort.Close();
             }
