@@ -175,7 +175,7 @@ namespace ChuniLaunch {
             //command 42, data 00            
             SendCommand(UNK_1, FELICA_CMD, new byte[] { 0x00 });
             var resp = ReadSerial();
-            if (resp.command == FELICA_CMD && !resp.data.SequenceEqual(new byte[] { 0x00, 0x01, 0x00 })) {
+            if (resp.command == FELICA_CMD && resp.data.Length > 4) {
                 //card of some type 1 found, read card data and talk to reader.
                 
                 //first five bytes are something else, then you have 8 bytes which are the cards Identifier.
@@ -189,7 +189,7 @@ namespace ChuniLaunch {
             //command 41, data 00
             SendCommand(UNK_1, UNK_CARD_CMD_2, new byte[] { 0x00 });
             resp = ReadSerial();
-            if (resp.command == UNK_CARD_CMD_2 && !resp.data.SequenceEqual(new byte[] { 0x00, 0x01, 0x00 })) {
+            if (resp.command == UNK_CARD_CMD_2 && resp.data.Length > 4) {
                 //card of some type 1 found, read card data and talk to reader.
                 progress.Report("Card Found!");
                 SendLED(0, 0, 0xff);
@@ -199,7 +199,7 @@ namespace ChuniLaunch {
             //data seems to send command 40, then data 01 03.
             SendCommand(UNK_1, UNK_CARD_CMD_1, new byte[] { 0x01, 0x03 });
             resp = ReadSerial();
-            if (resp.command == UNK_CARD_CMD_1 && !resp.data.SequenceEqual(new byte[] { 0x00, 0x00 })) {
+            if (resp.command == UNK_CARD_CMD_1 && resp.data.Length > 4) {
                 //card of some type 1 found, read card data and talk to reader.
                 progress.Report("Card Found!");
                 SendLED(0, 0, 0xff);
