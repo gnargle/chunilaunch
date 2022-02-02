@@ -199,7 +199,7 @@ namespace ChuniLaunch {
             this.flpRemote.Controls.Add(this.cbRemoteServ1);
             this.flpRemote.Location = new System.Drawing.Point(3, 90);
             this.flpRemote.Name = "flpRemote";
-            this.flpRemote.Size = new System.Drawing.Size(234, 123);
+            this.flpRemote.Size = new System.Drawing.Size(222, 123);
             this.flpRemote.TabIndex = 17;
             // 
             // label8
@@ -225,7 +225,7 @@ namespace ChuniLaunch {
             // 
             this.tbRemoteAddress.Location = new System.Drawing.Point(3, 33);
             this.tbRemoteAddress.Name = "tbRemoteAddress";
-            this.tbRemoteAddress.Size = new System.Drawing.Size(222, 20);
+            this.tbRemoteAddress.Size = new System.Drawing.Size(219, 20);
             this.tbRemoteAddress.TabIndex = 13;
             // 
             // label6
@@ -241,7 +241,7 @@ namespace ChuniLaunch {
             // 
             this.tbRemoteFelica.Location = new System.Drawing.Point(3, 72);
             this.tbRemoteFelica.Name = "tbRemoteFelica";
-            this.tbRemoteFelica.Size = new System.Drawing.Size(222, 20);
+            this.tbRemoteFelica.Size = new System.Drawing.Size(219, 20);
             this.tbRemoteFelica.TabIndex = 15;
             this.tbRemoteFelica.TextChanged += new System.EventHandler(this.tbRemoteFelica_TextChanged);
             // 
@@ -264,9 +264,9 @@ namespace ChuniLaunch {
             this.flpLocal.Controls.Add(this.label7);
             this.flpLocal.Controls.Add(this.tbLocalFelica);
             this.flpLocal.Controls.Add(this.cbRemoteServ2);
-            this.flpLocal.Location = new System.Drawing.Point(243, 90);
+            this.flpLocal.Location = new System.Drawing.Point(231, 90);
             this.flpLocal.Name = "flpLocal";
-            this.flpLocal.Size = new System.Drawing.Size(234, 123);
+            this.flpLocal.Size = new System.Drawing.Size(241, 123);
             this.flpLocal.TabIndex = 18;
             // 
             // label5
@@ -292,7 +292,7 @@ namespace ChuniLaunch {
             // 
             this.tbLocalAddress.Location = new System.Drawing.Point(3, 33);
             this.tbLocalAddress.Name = "tbLocalAddress";
-            this.tbLocalAddress.Size = new System.Drawing.Size(226, 20);
+            this.tbLocalAddress.Size = new System.Drawing.Size(238, 20);
             this.tbLocalAddress.TabIndex = 15;
             // 
             // label7
@@ -308,7 +308,7 @@ namespace ChuniLaunch {
             // 
             this.tbLocalFelica.Location = new System.Drawing.Point(3, 72);
             this.tbLocalFelica.Name = "tbLocalFelica";
-            this.tbLocalFelica.Size = new System.Drawing.Size(226, 20);
+            this.tbLocalFelica.Size = new System.Drawing.Size(238, 20);
             this.tbLocalFelica.TabIndex = 17;
             this.tbLocalFelica.TextChanged += new System.EventHandler(this.tbLocalFelica_TextChanged);
             // 
