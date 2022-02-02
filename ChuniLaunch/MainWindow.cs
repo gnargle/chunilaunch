@@ -20,11 +20,13 @@ namespace ChuniLaunch {
         private string remoteFelica;
         private string localFelica;
         private string ledPort;
+        private bool startup;
         public MainWindow() {
             InitializeComponent();
         }
 
         private void Form1_Shown(object sender, EventArgs e) {
+            startup = true;
             ini = new IniFile("chunilaunch.ini");
 
             if (!ini.KeyExists("profile")) {
@@ -75,6 +77,7 @@ namespace ChuniLaunch {
                     if (portName == ledPort) cbLEDPort.SelectedIndex = index;
                 }
             };
+            startup = false;
         }
 
         private bool CheckIniBool(string option) {
@@ -84,7 +87,7 @@ namespace ChuniLaunch {
         }
 
         private void ChangeProfile(Status newStatus) {
-            if (ini == null) return; //still initialising...         
+            if (startup) return; //still initialising...         
             //first, change SegaTools.
             var SegaToolsIni = new IniFile("segatools.ini");
             SegaToolsIni.Write("default", newStatus == Status.Remote ? remoteServerAddress : localServerAddress, "dns");
@@ -135,7 +138,7 @@ namespace ChuniLaunch {
         }
 
         private void cbWindowedMode_CheckedChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 var SegaToolsIni = new IniFile("segatools.ini");
                 SegaToolsIni.Write("windowed", cbWindowedMode.Checked ? "1" : "0", "gfx");
                 SegaToolsIni.Write("framed", cbWindowedMode.Checked ? "1" : "0", "gfx");
@@ -144,21 +147,21 @@ namespace ChuniLaunch {
         }
 
         private void tbRemoteFelica_TextChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 remoteFelica = tbRemoteFelica.Text;
                 ini.Write("remoteFelica", remoteFelica);
             }
         }
 
         private void tbLocalFelica_TextChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 localFelica = tbLocalFelica.Text;
                 ini.Write("localFelica", localFelica);
             }
         }
 
         private void cbEnableChunitachi_CheckedChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 var chuniBatch = File.ReadAllLines(chuniBatchLoc);
                 for (int i = 0; i <= chuniBatch.Count() - 1; i++) {
                     var line = chuniBatch[i];
@@ -189,7 +192,7 @@ namespace ChuniLaunch {
         }
 
         private void cbEnableSliderEmu_CheckedChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 var SegaToolsIni = new IniFile("segatools.ini");
                 SegaToolsIni.Write("enable", cbEnableSliderEmu.Checked ? "1" : "0", "slider");
                 ini.Write("slideremu", cbEnableSliderEmu.Checked ? "1" : "0");
@@ -198,7 +201,7 @@ namespace ChuniLaunch {
         }
 
         private void cbLEDPort_SelectedIndexChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 var SegaToolsIni = new IniFile("segatools.ini");
                 SegaToolsIni.Write("ledport", cbLEDPort.SelectedItem.ToString(), "slider");
                 ini.Write("ledport", cbLEDPort.SelectedItem.ToString());
@@ -213,7 +216,7 @@ namespace ChuniLaunch {
         }
 
         private void cbAimeEmulation_CheckedChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 var SegaToolsIni = new IniFile("segatools.ini");
                 SegaToolsIni.Write("enable", cbAimeEmulation.Checked ? "1" : "0", "aime");
                 ini.Write("aimeemu", cbAimeEmulation.Checked ? "1" : "0");
@@ -236,7 +239,7 @@ namespace ChuniLaunch {
         }
 
         private void cbRemoteServ_CheckedChanged(object sender, EventArgs e) {
-            if (ini != null) {
+            if (!startup) {
                 ini.Write("remoteserv1", cbRemoteServ1.Checked ? "1" : "0");
                 ini.Write("remoteserv2", cbRemoteServ2.Checked ? "1" : "0");
             }
