@@ -43,13 +43,16 @@ namespace ChuniLaunch {
             this.tbRemoteAddress = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbRemoteFelica = new System.Windows.Forms.TextBox();
-            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cbRemoteServ1 = new System.Windows.Forms.CheckBox();
             this.flpLocal = new System.Windows.Forms.FlowLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tbLocalAddress = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tbLocalFelica = new System.Windows.Forms.TextBox();
+            this.cbRemoteServ2 = new System.Windows.Forms.CheckBox();
+            this.rbLocalProfile = new System.Windows.Forms.RadioButton();
+            this.bApplyServer = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.cbWindowedMode = new System.Windows.Forms.CheckBox();
@@ -60,11 +63,9 @@ namespace ChuniLaunch {
             this.cbLEDPort = new System.Windows.Forms.ComboBox();
             this.cbAimeEmulation = new System.Windows.Forms.CheckBox();
             this.bTestAimeReader = new System.Windows.Forms.Button();
-            this.rbLocalProfile = new System.Windows.Forms.RadioButton();
             this.bLaunch = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.bApplyServer = new System.Windows.Forms.Button();
             this.flpMain.SuspendLayout();
             this.flpRemote.SuspendLayout();
             this.flpLocal.SuspendLayout();
@@ -75,14 +76,13 @@ namespace ChuniLaunch {
             // rbRemoteProfile
             // 
             this.rbRemoteProfile.AutoSize = true;
-            this.rbRemoteProfile.Location = new System.Drawing.Point(3, 196);
+            this.rbRemoteProfile.Location = new System.Drawing.Point(3, 219);
             this.rbRemoteProfile.Name = "rbRemoteProfile";
             this.rbRemoteProfile.Size = new System.Drawing.Size(96, 17);
             this.rbRemoteProfile.TabIndex = 0;
             this.rbRemoteProfile.TabStop = true;
             this.rbRemoteProfile.Text = "Remote Server";
             this.rbRemoteProfile.UseVisualStyleBackColor = true;
-            this.rbRemoteProfile.CheckedChanged += new System.EventHandler(this.rbRemoteProfile_CheckedChanged);
             // 
             // flpMain
             // 
@@ -105,7 +105,7 @@ namespace ChuniLaunch {
             this.flpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpMain.Location = new System.Drawing.Point(0, 0);
             this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(484, 358);
+            this.flpMain.Size = new System.Drawing.Size(484, 380);
             this.flpMain.TabIndex = 1;
             // 
             // label1
@@ -196,10 +196,10 @@ namespace ChuniLaunch {
             this.flpRemote.Controls.Add(this.tbRemoteAddress);
             this.flpRemote.Controls.Add(this.label6);
             this.flpRemote.Controls.Add(this.tbRemoteFelica);
-            this.flpRemote.Controls.Add(this.flowLayoutPanel4);
+            this.flpRemote.Controls.Add(this.cbRemoteServ1);
             this.flpRemote.Location = new System.Drawing.Point(3, 90);
             this.flpRemote.Name = "flpRemote";
-            this.flpRemote.Size = new System.Drawing.Size(234, 100);
+            this.flpRemote.Size = new System.Drawing.Size(234, 123);
             this.flpRemote.TabIndex = 17;
             // 
             // label8
@@ -208,9 +208,9 @@ namespace ChuniLaunch {
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(182, 17);
+            this.label8.Size = new System.Drawing.Size(179, 17);
             this.label8.TabIndex = 17;
-            this.label8.Text = "Remote Settings           ";
+            this.label8.Text = "Server 1 Settings         ";
             // 
             // label4
             // 
@@ -245,12 +245,16 @@ namespace ChuniLaunch {
             this.tbRemoteFelica.TabIndex = 15;
             this.tbRemoteFelica.TextChanged += new System.EventHandler(this.tbRemoteFelica_TextChanged);
             // 
-            // flowLayoutPanel4
+            // cbRemoteServ1
             // 
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 98);
-            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(200, 100);
-            this.flowLayoutPanel4.TabIndex = 18;
+            this.cbRemoteServ1.AutoSize = true;
+            this.cbRemoteServ1.Location = new System.Drawing.Point(3, 98);
+            this.cbRemoteServ1.Name = "cbRemoteServ1";
+            this.cbRemoteServ1.Size = new System.Drawing.Size(63, 17);
+            this.cbRemoteServ1.TabIndex = 19;
+            this.cbRemoteServ1.Text = "Remote";
+            this.cbRemoteServ1.UseVisualStyleBackColor = true;
+            this.cbRemoteServ1.CheckedChanged += new System.EventHandler(this.cbRemoteServ_CheckedChanged);
             // 
             // flpLocal
             // 
@@ -259,9 +263,10 @@ namespace ChuniLaunch {
             this.flpLocal.Controls.Add(this.tbLocalAddress);
             this.flpLocal.Controls.Add(this.label7);
             this.flpLocal.Controls.Add(this.tbLocalFelica);
+            this.flpLocal.Controls.Add(this.cbRemoteServ2);
             this.flpLocal.Location = new System.Drawing.Point(243, 90);
             this.flpLocal.Name = "flpLocal";
-            this.flpLocal.Size = new System.Drawing.Size(234, 100);
+            this.flpLocal.Size = new System.Drawing.Size(234, 123);
             this.flpLocal.TabIndex = 18;
             // 
             // label5
@@ -270,9 +275,9 @@ namespace ChuniLaunch {
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(181, 17);
+            this.label5.Size = new System.Drawing.Size(204, 17);
             this.label5.TabIndex = 20;
-            this.label5.Text = "Local Settings              ";
+            this.label5.Text = "Server 2 Settings              ";
             // 
             // label9
             // 
@@ -307,6 +312,38 @@ namespace ChuniLaunch {
             this.tbLocalFelica.TabIndex = 17;
             this.tbLocalFelica.TextChanged += new System.EventHandler(this.tbLocalFelica_TextChanged);
             // 
+            // cbRemoteServ2
+            // 
+            this.cbRemoteServ2.AutoSize = true;
+            this.cbRemoteServ2.Location = new System.Drawing.Point(3, 98);
+            this.cbRemoteServ2.Name = "cbRemoteServ2";
+            this.cbRemoteServ2.Size = new System.Drawing.Size(63, 17);
+            this.cbRemoteServ2.TabIndex = 21;
+            this.cbRemoteServ2.Text = "Remote";
+            this.cbRemoteServ2.UseVisualStyleBackColor = true;
+            this.cbRemoteServ2.CheckedChanged += new System.EventHandler(this.cbRemoteServ_CheckedChanged);
+            // 
+            // rbLocalProfile
+            // 
+            this.rbLocalProfile.AutoSize = true;
+            this.rbLocalProfile.Location = new System.Drawing.Point(105, 219);
+            this.rbLocalProfile.Name = "rbLocalProfile";
+            this.rbLocalProfile.Size = new System.Drawing.Size(85, 17);
+            this.rbLocalProfile.TabIndex = 1;
+            this.rbLocalProfile.TabStop = true;
+            this.rbLocalProfile.Text = "Local Server";
+            this.rbLocalProfile.UseVisualStyleBackColor = true;
+            // 
+            // bApplyServer
+            // 
+            this.bApplyServer.Location = new System.Drawing.Point(196, 219);
+            this.bApplyServer.Name = "bApplyServer";
+            this.bApplyServer.Size = new System.Drawing.Size(120, 23);
+            this.bApplyServer.TabIndex = 21;
+            this.bApplyServer.Text = "Apply Server Settings";
+            this.bApplyServer.UseVisualStyleBackColor = true;
+            this.bApplyServer.Click += new System.EventHandler(this.bApplyServer_Click);
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.label10);
@@ -318,7 +355,7 @@ namespace ChuniLaunch {
             this.flowLayoutPanel1.Controls.Add(this.cbLEDPort);
             this.flowLayoutPanel1.Controls.Add(this.cbAimeEmulation);
             this.flowLayoutPanel1.Controls.Add(this.bTestAimeReader);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 225);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 248);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(469, 79);
             this.flowLayoutPanel1.TabIndex = 20;
@@ -416,21 +453,9 @@ namespace ChuniLaunch {
             this.bTestAimeReader.UseVisualStyleBackColor = true;
             this.bTestAimeReader.Click += new System.EventHandler(this.bTestAimeReader_Click);
             // 
-            // rbLocalProfile
-            // 
-            this.rbLocalProfile.AutoSize = true;
-            this.rbLocalProfile.Location = new System.Drawing.Point(105, 196);
-            this.rbLocalProfile.Name = "rbLocalProfile";
-            this.rbLocalProfile.Size = new System.Drawing.Size(85, 17);
-            this.rbLocalProfile.TabIndex = 1;
-            this.rbLocalProfile.TabStop = true;
-            this.rbLocalProfile.Text = "Local Server";
-            this.rbLocalProfile.UseVisualStyleBackColor = true;
-            this.rbLocalProfile.CheckedChanged += new System.EventHandler(this.rbLocalProfile_CheckedChanged);
-            // 
             // bLaunch
             // 
-            this.bLaunch.Location = new System.Drawing.Point(3, 310);
+            this.bLaunch.Location = new System.Drawing.Point(3, 333);
             this.bLaunch.Name = "bLaunch";
             this.bLaunch.Size = new System.Drawing.Size(476, 44);
             this.bLaunch.TabIndex = 2;
@@ -443,21 +468,11 @@ namespace ChuniLaunch {
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Batch Files|*.bat|All files| *.*";
             // 
-            // bApplyServer
-            // 
-            this.bApplyServer.Location = new System.Drawing.Point(196, 196);
-            this.bApplyServer.Name = "bApplyServer";
-            this.bApplyServer.Size = new System.Drawing.Size(120, 23);
-            this.bApplyServer.TabIndex = 21;
-            this.bApplyServer.Text = "Apply Server Settings";
-            this.bApplyServer.UseVisualStyleBackColor = true;
-            this.bApplyServer.Click += new System.EventHandler(this.bApplyServer_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 358);
+            this.ClientSize = new System.Drawing.Size(484, 380);
             this.Controls.Add(this.flpMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -510,7 +525,6 @@ namespace ChuniLaunch {
         private System.Windows.Forms.TextBox tbLocalFelica;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.CheckBox cbEnableChunitachi;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox cbEnableSliderEmu;
@@ -520,6 +534,8 @@ namespace ChuniLaunch {
         private System.Windows.Forms.CheckBox cbAimeEmulation;
         private System.Windows.Forms.Button bTestAimeReader;
         private System.Windows.Forms.Button bApplyServer;
+        private System.Windows.Forms.CheckBox cbRemoteServ1;
+        private System.Windows.Forms.CheckBox cbRemoteServ2;
     }
 }
 

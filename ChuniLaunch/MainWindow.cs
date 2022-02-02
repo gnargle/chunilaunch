@@ -50,6 +50,9 @@ namespace ChuniLaunch {
             cbEnableSliderEmu.Checked = CheckIniBool("slideremu");
             cbAimeEmulation.Checked = CheckIniBool("aimeemu");
 
+            cbRemoteServ1.Checked = CheckIniBool("remoteserv1");
+            cbRemoteServ2.Checked = CheckIniBool("remoteserv2");
+
             remoteServerAddress = ini.Read("remoteServer");
             tbRemoteAddress.Text = remoteServerAddress;
             localServerAddress = ini.Read("localServer");
@@ -81,8 +84,7 @@ namespace ChuniLaunch {
         }
 
         private void ChangeProfile(Status newStatus) {
-            if (ini == null) return; //still initialising...
-            if (currentStatus == newStatus) return; //during initial launch or something's gone weird, don't change anything.            
+            if (ini == null) return; //still initialising...         
             //first, change SegaTools.
             var SegaToolsIni = new IniFile("segatools.ini");
             SegaToolsIni.Write("default", newStatus == Status.Remote ? remoteServerAddress : localServerAddress, "dns");
@@ -95,20 +97,14 @@ namespace ChuniLaunch {
             }
             //replace the combined batch file.
             File.Delete(combinedBatchLoc);
-            string serverLaunchLine = newStatus == Status.Remote ? $"::start \"\" \"{serverBatchLoc}\"" : $"start \"\" \"{serverBatchLoc}\"";
+            string serverLaunchLine = String.Empty;
+            if (newStatus == Status.Remote)
+                serverLaunchLine = cbRemoteServ1.Checked ? $"::start \"\" \"{serverBatchLoc}\"" : $"start \"\" \"{serverBatchLoc}\"";
+            else
+                serverLaunchLine = cbRemoteServ2.Checked ? $"::start \"\" \"{serverBatchLoc}\"" : $"start \"\" \"{serverBatchLoc}\"";
             File.WriteAllLines(combinedBatchLoc, new String[] { serverLaunchLine, $"start \"\" \"{chuniBatchLoc}\" " });
             ini.Write("profile", newStatus == Status.Remote ? "remote" : "local");
             currentStatus = newStatus;
-        }
-
-        private void rbRemoteProfile_CheckedChanged(object sender, EventArgs e) {
-            if (rbRemoteProfile.Checked)
-                ChangeProfile(Status.Remote);
-        }
-
-        private void rbLocalProfile_CheckedChanged(object sender, EventArgs e) {
-            if (rbLocalProfile.Checked)
-                ChangeProfile(Status.Local);
         }
 
         private void bLaunch_Click(object sender, EventArgs e) {
@@ -237,6 +233,13 @@ namespace ChuniLaunch {
                 ChangeProfile(Status.Remote);
             else if (rbLocalProfile.Checked)
                 ChangeProfile(Status.Local);
+        }
+
+        private void cbRemoteServ_CheckedChanged(object sender, EventArgs e) {
+            if (ini != null) {
+                ini.Write("remoteserv1", cbRemoteServ1.Checked ? "1" : "0");
+                ini.Write("remoteserv2", cbRemoteServ2.Checked ? "1" : "0");
+            }
         }
     }
 }
