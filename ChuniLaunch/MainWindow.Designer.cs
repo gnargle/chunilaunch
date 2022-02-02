@@ -78,10 +78,10 @@ namespace ChuniLaunch {
             this.rbRemoteProfile.AutoSize = true;
             this.rbRemoteProfile.Location = new System.Drawing.Point(3, 219);
             this.rbRemoteProfile.Name = "rbRemoteProfile";
-            this.rbRemoteProfile.Size = new System.Drawing.Size(96, 17);
+            this.rbRemoteProfile.Size = new System.Drawing.Size(65, 17);
             this.rbRemoteProfile.TabIndex = 0;
             this.rbRemoteProfile.TabStop = true;
-            this.rbRemoteProfile.Text = "Remote Server";
+            this.rbRemoteProfile.Text = "Server 1";
             this.rbRemoteProfile.UseVisualStyleBackColor = true;
             // 
             // flpMain
@@ -326,17 +326,17 @@ namespace ChuniLaunch {
             // rbLocalProfile
             // 
             this.rbLocalProfile.AutoSize = true;
-            this.rbLocalProfile.Location = new System.Drawing.Point(105, 219);
+            this.rbLocalProfile.Location = new System.Drawing.Point(74, 219);
             this.rbLocalProfile.Name = "rbLocalProfile";
-            this.rbLocalProfile.Size = new System.Drawing.Size(85, 17);
+            this.rbLocalProfile.Size = new System.Drawing.Size(65, 17);
             this.rbLocalProfile.TabIndex = 1;
             this.rbLocalProfile.TabStop = true;
-            this.rbLocalProfile.Text = "Local Server";
+            this.rbLocalProfile.Text = "Server 2";
             this.rbLocalProfile.UseVisualStyleBackColor = true;
             // 
             // bApplyServer
             // 
-            this.bApplyServer.Location = new System.Drawing.Point(196, 219);
+            this.bApplyServer.Location = new System.Drawing.Point(145, 219);
             this.bApplyServer.Name = "bApplyServer";
             this.bApplyServer.Size = new System.Drawing.Size(120, 23);
             this.bApplyServer.TabIndex = 21;
