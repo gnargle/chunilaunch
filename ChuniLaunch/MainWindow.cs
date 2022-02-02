@@ -147,20 +147,6 @@ namespace ChuniLaunch {
             }
         }
 
-        private void tbRemoteAddress_TextChanged(object sender, EventArgs e) {
-            if (ini != null) {
-                remoteServerAddress = tbRemoteAddress.Text;
-                ini.Write("remoteServer", remoteServerAddress);
-            }
-        }
-
-        private void tbLocalServer_TextChanged(object sender, EventArgs e) {
-            if (ini != null) {
-                localServerAddress = tbLocalAddress.Text;
-                ini.Write("localServer", localServerAddress);
-            }
-        }
-
         private void tbRemoteFelica_TextChanged(object sender, EventArgs e) {
             if (ini != null) {
                 remoteFelica = tbRemoteFelica.Text;
@@ -244,6 +230,13 @@ namespace ChuniLaunch {
             var testWnd = new AimeTestWindow();
             testWnd.ShowDialog();
             testWnd.Close();
+        }
+
+        private void bApplyServer_Click(object sender, EventArgs e) {
+            if (rbRemoteProfile.Checked)
+                ChangeProfile(Status.Remote);
+            else if (rbLocalProfile.Checked)
+                ChangeProfile(Status.Local);
         }
     }
 }
