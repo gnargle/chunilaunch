@@ -107,8 +107,8 @@ namespace ChuniLaunch {
             }
         }
         private void WriteEscapedByte(byte b) {
-            if (b == 0xd0 || b == 0xe0) {
-                serialPort.Write(new byte[] { 0xd0, (byte)(b - 1) }, 0, 2);
+            if (b == AIME_ESCAPE || b == 0xe0) {
+                serialPort.Write(new byte[] { AIME_ESCAPE, (byte)(b - 1) }, 0, 2);
             } else
                 serialPort.Write(new byte[] { b }, 0, 1);
         }
