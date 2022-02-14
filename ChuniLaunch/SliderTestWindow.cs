@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace ChuniLaunch {
     public partial class SliderTestWindow : Form {
 
         private const byte SLIDER_ESCAPE = 0xfd;
+        private const byte SLIDER_SYNC = 0xff;
         private const byte RESET_CMD = 0x10;
         private const byte HW_INFO_CMD = 0xf0;
         private const byte AUTOSCAN_CMD = 0x03;
@@ -52,7 +54,7 @@ namespace ChuniLaunch {
             var command = new Command() {
                 sync = 0xff,
                 command = commandByte,
-                length = (byte)(data.Length),               
+                length = (byte)(data.Length + data.Count(b => b == SLIDER_SYNC || b == SLIDER_ESCAPE)), //account for extra escape bytes required in length              
                 data = data,
             };
             command.checksum = Checksum(command);
@@ -94,37 +96,49 @@ namespace ChuniLaunch {
         }
 
         private void WriteEscapedByte(byte b) {
-            if (b == SLIDER_ESCAPE || b == 0xff) {
+            if (b == SLIDER_ESCAPE || b == SLIDER_SYNC) {
                 serialPort.Write(new byte[] { SLIDER_ESCAPE, (byte)(b - 1) }, 0, 2);
             } else
                 serialPort.Write(new byte[] { b }, 0, 1);
         }
 
         private byte[] ReadTotalLength(byte[] arr, int bytesToRead) {
+            /* int read = 0;
+             while (read < bytesToRead) {
+                 read += serialPort.Read(arr, read, bytesToRead - read);
+             }
+             int i = 0;
+             bool changed = false;
+             var l = arr.ToList();
+             var l0 = arr.ToList();
+             foreach(var b in l) {
+                 if (changed) {
+                     l0[i] = (byte)(l0[i] + 1);
+                     changed = false;
+                     i++;
+                 }  else {
+                     if (b == SLIDER_ESCAPE) {
+                         l0.RemoveAt(i);
+                         changed = true;
+                     } else {
+                         i++;
+                     }
+                 }                
+             }
+             arr = l0.ToArray();
+             return arr;*/
+            var bytes = new List<byte>();
             int read = 0;
             while (read < bytesToRead) {
-                read += serialPort.Read(arr, read, bytesToRead - read);
+                int b = serialPort.ReadByte();
+                if (b == SLIDER_ESCAPE) {
+                    b = serialPort.ReadByte() + 1;
+                    read++; //unlike aime, the extra byte is not ignored in the length of escape.
+                }
+                bytes.Add((byte)b);
+                read++;
             }
-            int i = 0;
-            bool changed = false;
-            var l = arr.ToList();
-            var l0 = arr.ToList();
-            foreach(var b in l) {
-                if (changed) {
-                    l0[i] = (byte)(l0[i] + 1);
-                    changed = false;
-                    i++;
-                }  else {
-                    if (b == SLIDER_ESCAPE) {
-                        l0.RemoveAt(i);
-                        changed = true;
-                    } else {
-                        i++;
-                    }
-                }                
-            }
-            arr = l0.ToArray();
-            return arr;
+            return bytes.ToArray();
         }
 
         private string packetToString(byte[] arr) {
