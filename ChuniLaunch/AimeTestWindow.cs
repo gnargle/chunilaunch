@@ -11,6 +11,7 @@ namespace ChuniLaunch {
         private byte _seq;
         private int currCol = 0;
         private bool rainbowDir = true;
+        private bool _chusan;
 
         private const byte AIME_ESCAPE = 0xd0;
         private const byte RESET_CMD = 0x62;
@@ -33,8 +34,9 @@ namespace ChuniLaunch {
                 }
             }
         }
-        public AimeTestWindow() {
+        public AimeTestWindow(bool chusan) {
             InitializeComponent();
+            _chusan = chusan;
         }
 
         private void AimeTestWindow_Load(object sender, EventArgs e) {
@@ -242,8 +244,13 @@ namespace ChuniLaunch {
 
         private void aimeTask(IProgress<string> progress) {
             serialPort = new SerialPort();
-            serialPort.PortName = "COM12";
-            serialPort.BaudRate = 38400;
+            if (_chusan) {
+                serialPort.PortName = "COM4"; //config_sp uses a different com, but the baud rate can remain the same. 
+                serialPort.BaudRate = 38400;
+            } else {
+                serialPort.PortName = "COM12";
+                serialPort.BaudRate = 38400;
+            }
             serialPort.WriteTimeout = 3000;
             serialPort.ReadTimeout = 3000;
             serialPort.Open();

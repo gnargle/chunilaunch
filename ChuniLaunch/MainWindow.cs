@@ -21,6 +21,10 @@ namespace ChuniLaunch {
         private string localFelica;
         private string ledPort;
         private bool startup;
+        private bool chusan;
+
+        private const int CHUSAN_INDEX = 1;
+        private const int CHUNI_INDEX = 0;
         public MainWindow() {
             InitializeComponent();
         }
@@ -47,7 +51,13 @@ namespace ChuniLaunch {
             tbServer.Text = serverBatchLoc;
             chuniBatchLoc = ini.Read("chuniBatch");
             tbChuni.Text = chuniBatchLoc;
+            chusan = CheckIniBool("chusan");
+            if (chusan) {
+                cbChuniVersion.SelectedIndex = CHUSAN_INDEX;
+            } else
+                cbChuniVersion.SelectedIndex = CHUNI_INDEX;
             cbWindowedMode.Checked = CheckIniBool("windowed");
+            cbBorderless.Checked = CheckIniBool("borderless");
             cbEnableChunitachi.Checked = CheckIniBool("chunitachi");
             cbEnableSliderEmu.Checked = CheckIniBool("slideremu");
             cbAimeEmulation.Checked = CheckIniBool("aimeemu");
@@ -82,7 +92,7 @@ namespace ChuniLaunch {
 
         private bool CheckIniBool(string option) {
             if (ini != null) {
-                return ini.Read(option) != "0";
+                return !String.IsNullOrWhiteSpace(ini.Read(option)) && ini.Read(option) != "0";
             } else throw new DataException("ini not initialised.");
         }
 
@@ -140,9 +150,16 @@ namespace ChuniLaunch {
         private void cbWindowedMode_CheckedChanged(object sender, EventArgs e) {
             if (!startup) {
                 var SegaToolsIni = new IniFile("segatools.ini");
-                SegaToolsIni.Write("windowed", cbWindowedMode.Checked ? "1" : "0", "gfx");
-                SegaToolsIni.Write("framed", cbWindowedMode.Checked ? "1" : "0", "gfx");
+                SegaToolsIni.Write("windowed", cbWindowedMode.Checked ? "1" : "0", "gfx");                
                 ini.Write("windowed", cbWindowedMode.Checked ? "1" : "0");
+            }
+        }
+
+        private void cbBorderless_CheckedChanged(object sender, EventArgs e) {
+            if (!startup) {
+                var SegaToolsIni = new IniFile("segatools.ini");
+                SegaToolsIni.Write("framed", cbBorderless.Checked ? "0" : "1", "gfx");
+                ini.Write("borderless", cbWindowedMode.Checked ? "1" : "0");
             }
         }
 
@@ -165,26 +182,28 @@ namespace ChuniLaunch {
                 var chuniBatch = File.ReadAllLines(chuniBatchLoc);
                 for (int i = 0; i <= chuniBatch.Count() - 1; i++) {
                     var line = chuniBatch[i];
-                    if (line.Contains("chuniApp")) {
-                        if (cbEnableChunitachi.Checked) {
-                            line = "start /high /affinity f0 inject -d -k chunihook.dll -k ChunItachi.dll chuniApp.exe";
-                        } else {
-                            line = "start /high /affinity f0 inject -d -k chunihook.dll chuniApp.exe";
+                    if (chusan) {
+                        if (line.Contains("chusanApp")) {
+                            if (cbEnableChunitachi.Checked) {
+                                line = "start /high /affinity f0 inject -d -k chusanhook_x86.dll -k ChunItachi.dll chusanApp.exe";
+                            } else {
+                                line = "start /high /affinity f0 inject -d -k chusanhook_x86.dll chusanApp.exe";
+                            }
+                            chuniBatch[i] = line;
+                            File.WriteAllLines(chuniBatchLoc, chuniBatch);
+                            break;
                         }
-                        chuniBatch[i] = line;
-                        File.WriteAllLines(chuniBatchLoc, chuniBatch);
-                        break;
-                    }
-                    //futureproofing ;)
-                    if (line.Contains("chusanApp")) {
-                        if (cbEnableChunitachi.Checked) {
-                            line = "start /high /affinity f0 inject -d -k chusanhook.dll -k ChunItachi.dll chusanApp.exe";
-                        } else {
-                            line = "start /high /affinity f0 inject -d -k chusanhook.dll chusanApp.exe";
+                    } else {
+                        if (line.Contains("chuniApp")) {
+                            if (cbEnableChunitachi.Checked) {
+                                line = "start /high /affinity f0 inject -d -k chunihook.dll -k ChunItachi.dll chuniApp.exe";
+                            } else {
+                                line = "start /high /affinity f0 inject -d -k chunihook.dll chuniApp.exe";
+                            }
+                            chuniBatch[i] = line;
+                            File.WriteAllLines(chuniBatchLoc, chuniBatch);
+                            break;
                         }
-                        chuniBatch[i] = line;
-                        File.WriteAllLines(chuniBatchLoc, chuniBatch);
-                        break;
                     }
                 }
                 ini.Write("chunitachi", cbEnableChunitachi.Checked ? "1" : "0");
@@ -226,7 +245,7 @@ namespace ChuniLaunch {
 
         private void bTestAimeReader_Click(object sender, EventArgs e) {
             //open new modal window and run tesst code for slider
-            var testWnd = new AimeTestWindow();
+            var testWnd = new AimeTestWindow(chusan);
             testWnd.ShowDialog();
             testWnd.Close();
         }
@@ -244,5 +263,12 @@ namespace ChuniLaunch {
                 ini.Write("remoteserv2", cbRemoteServ2.Checked ? "1" : "0");
             }
         }
+
+        private void cbChuniVersion_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!startup) {
+                chusan = cbChuniVersion.SelectedIndex == CHUSAN_INDEX;
+                ini.Write("chusan", chusan ? "1" : "0");
+            }
+        }        
     }
 }
