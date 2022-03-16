@@ -28,6 +28,8 @@ namespace ChuniLaunch {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.rbRemoteProfile = new System.Windows.Forms.RadioButton();
             this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cbChuniVersion = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbBatchFile = new System.Windows.Forms.TextBox();
             this.bCombinedOpen = new System.Windows.Forms.Button();
@@ -56,6 +58,7 @@ namespace ChuniLaunch {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.cbWindowedMode = new System.Windows.Forms.CheckBox();
+            this.cbBorderless = new System.Windows.Forms.CheckBox();
             this.cbEnableChunitachi = new System.Windows.Forms.CheckBox();
             this.cbEnableSliderEmu = new System.Windows.Forms.CheckBox();
             this.bTestACSlider = new System.Windows.Forms.Button();
@@ -66,9 +69,6 @@ namespace ChuniLaunch {
             this.bLaunch = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.cbChuniVersion = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cbBorderless = new System.Windows.Forms.CheckBox();
             this.flpMain.SuspendLayout();
             this.flpRemote.SuspendLayout();
             this.flpLocal.SuspendLayout();
@@ -112,6 +112,29 @@ namespace ChuniLaunch {
             this.flpMain.Name = "flpMain";
             this.flpMain.Size = new System.Drawing.Size(484, 409);
             this.flpMain.TabIndex = 1;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(3, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(151, 20);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "Chunithm Version";
+            // 
+            // cbChuniVersion
+            // 
+            this.cbChuniVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbChuniVersion.FormattingEnabled = true;
+            this.cbChuniVersion.Items.AddRange(new object[] {
+            "chuniapp.exe",
+            "chusanapp.exe"});
+            this.cbChuniVersion.Location = new System.Drawing.Point(160, 3);
+            this.cbChuniVersion.Name = "cbChuniVersion";
+            this.cbChuniVersion.Size = new System.Drawing.Size(223, 21);
+            this.cbChuniVersion.TabIndex = 22;
+            this.cbChuniVersion.SelectedIndexChanged += new System.EventHandler(this.cbChuniVersion_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -232,6 +255,7 @@ namespace ChuniLaunch {
             this.tbRemoteAddress.Name = "tbRemoteAddress";
             this.tbRemoteAddress.Size = new System.Drawing.Size(219, 20);
             this.tbRemoteAddress.TabIndex = 13;
+            this.tbRemoteAddress.TextChanged += new System.EventHandler(this.tbRemoteAddress_TextChanged);
             // 
             // label6
             // 
@@ -299,6 +323,7 @@ namespace ChuniLaunch {
             this.tbLocalAddress.Name = "tbLocalAddress";
             this.tbLocalAddress.Size = new System.Drawing.Size(238, 20);
             this.tbLocalAddress.TabIndex = 15;
+            this.tbLocalAddress.TextChanged += new System.EventHandler(this.tbRemoteAddress_TextChanged);
             // 
             // label7
             // 
@@ -387,6 +412,17 @@ namespace ChuniLaunch {
             this.cbWindowedMode.UseVisualStyleBackColor = true;
             this.cbWindowedMode.CheckedChanged += new System.EventHandler(this.cbWindowedMode_CheckedChanged);
             // 
+            // cbBorderless
+            // 
+            this.cbBorderless.AutoSize = true;
+            this.cbBorderless.Location = new System.Drawing.Point(252, 3);
+            this.cbBorderless.Name = "cbBorderless";
+            this.cbBorderless.Size = new System.Drawing.Size(75, 17);
+            this.cbBorderless.TabIndex = 27;
+            this.cbBorderless.Text = "Borderless";
+            this.cbBorderless.UseVisualStyleBackColor = true;
+            this.cbBorderless.CheckedChanged += new System.EventHandler(this.cbBorderless_CheckedChanged);
+            // 
             // cbEnableChunitachi
             // 
             this.cbEnableChunitachi.AutoSize = true;
@@ -473,40 +509,6 @@ namespace ChuniLaunch {
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Batch Files|*.bat|All files| *.*";
-            // 
-            // cbChuniVersion
-            // 
-            this.cbChuniVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbChuniVersion.FormattingEnabled = true;
-            this.cbChuniVersion.Items.AddRange(new object[] {
-            "chuniapp.exe",
-            "chusanapp.exe"});
-            this.cbChuniVersion.Location = new System.Drawing.Point(160, 3);
-            this.cbChuniVersion.Name = "cbChuniVersion";
-            this.cbChuniVersion.Size = new System.Drawing.Size(223, 21);
-            this.cbChuniVersion.TabIndex = 22;
-            this.cbChuniVersion.SelectedIndexChanged += new System.EventHandler(this.cbChuniVersion_SelectedIndexChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(3, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(151, 20);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "Chunithm Version";
-            // 
-            // cbBorderless
-            // 
-            this.cbBorderless.AutoSize = true;
-            this.cbBorderless.Location = new System.Drawing.Point(252, 3);
-            this.cbBorderless.Name = "cbBorderless";
-            this.cbBorderless.Size = new System.Drawing.Size(75, 17);
-            this.cbBorderless.TabIndex = 27;
-            this.cbBorderless.Text = "Borderless";
-            this.cbBorderless.UseVisualStyleBackColor = true;
-            this.cbBorderless.CheckedChanged += new System.EventHandler(this.cbBorderless_CheckedChanged);
             // 
             // MainWindow
             // 

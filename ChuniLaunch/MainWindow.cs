@@ -269,6 +269,15 @@ namespace ChuniLaunch {
                 chusan = cbChuniVersion.SelectedIndex == CHUSAN_INDEX;
                 ini.Write("chusan", chusan ? "1" : "0");
             }
-        }        
+        }
+
+        private void tbRemoteAddress_TextChanged(object sender, EventArgs e) {
+            if (!startup) {
+                ini.Write("remoteServer", tbRemoteAddress.Text);
+                ini.Write("localServer", tbLocalAddress.Text);
+                remoteServerAddress = tbRemoteAddress.Text;
+                localServerAddress = tbLocalAddress.Text;
+            }
+        }
     }
 }
