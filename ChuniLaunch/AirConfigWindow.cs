@@ -9,39 +9,40 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ChuniLaunch {
-    public partial class SliderConfigWindow : Form {
-
+    public partial class AirConfigWindow : Form {
         private const int BUTTON_WIDTH = 45;
         private const int BUTTON_HEIGHT = 49;
 
         private bool chusan;
         private IniFile segatools;
         private List<Keys> keyMappings = new List<Keys>();
-        private int currPad = -1;
+        private int currAir = -1;
         private Button currButton;
-
-        public SliderConfigWindow(bool _chusan) {
+        public AirConfigWindow(bool _chusan) {
             InitializeComponent();
-            chusan = _chusan; //not needed for slider currently but might as well add it in case.
+            chusan = _chusan;
         }
 
-        private void RebindKeyHandler (object s, KeyEventArgs ev) {
-            if (ev.KeyCode != Keys.Escape) {
-                //escape cancels, otherwise set the key.
-                keyMappings[currPad-1] = ev.KeyCode;
-                currButton.Text = $"{currPad}\n{GetKeyName(ev.KeyCode)}";
+        private void bSave_Click(object sender, EventArgs e) {
+            for (int i = 0; i <= 5; i++) {
+                var hexkey = $"0x{keyMappings[i]:X}";
+                segatools.Write("ir" + (i + 1), hexkey, "io3");
             }
-            currButton.KeyDown -= RebindKeyHandler;
-            lInfo.Text = $"Click each button to bind a key";
+        }
+        private void AirConfigWindow_KeyDown(object sender, KeyEventArgs e) {
+            for (int i = 0; i <= 5; i++) {
+                if (keyMappings[i] == e.KeyCode) {
+                    ((Button)pIndicators.Controls[i]).BackColor = Color.LightGreen;
+                }
+            }
         }
 
-        private void bKeyButton_Click(object sender, EventArgs e) {
-            currPad = Convert.ToInt32(((Control)sender).Name.Substring(10));
-            if (currButton != null) currButton.KeyDown -= RebindKeyHandler;
-            currButton = ((Button)sender);
-            var padsKey = keyMappings[currPad];
-            lInfo.Text = $"Press a key to bind pad {currPad} (Esc to cancel)";
-            currButton.KeyDown += RebindKeyHandler;
+        private void AirConfigWindow_KeyUp(object sender, KeyEventArgs e) {
+            for (int i = 0; i <= 5; i++) {
+                if (keyMappings[i] == e.KeyCode) {
+                    ((Button)pIndicators.Controls[i]).BackColor = Color.LightCoral;
+                }
+            }
         }
 
         private string GetKeyName(Keys key) {
@@ -75,46 +76,55 @@ namespace ChuniLaunch {
                     else if (keyName.Equals("OemSemicolon", StringComparison.InvariantCultureIgnoreCase) || keyName.Equals("Oem1", StringComparison.InvariantCultureIgnoreCase))
                         return ";";
                     else if (keyName.Equals("Oemtilde", StringComparison.InvariantCultureIgnoreCase))
-                        return "~";                    
+                        return "~";
                 }
                 return keyName; //it could be something else but I can't be bothered
             }
         }
 
-        private void SliderConfigWindow_Load(object sender, EventArgs e) {
-            //generate the buttons on load
-            segatools = new IniFile("segatools.ini"); 
-            var currLocX = 0;
-            var currLocY = 0;
-            for (int i = 32; i > 0; i--) {
-                Keys currMapping;
+        private void RebindKeyHandler(object s, KeyEventArgs ev) {
+            if (ev.KeyCode != Keys.Escape) {
+                //escape cancels, otherwise set the key.
+                keyMappings[currAir - 1] = ev.KeyCode;
+                currButton.Text = $"{currAir}\n{GetKeyName(ev.KeyCode)}";
+            }
+            currButton.KeyDown -= RebindKeyHandler;
+            lInfo.Text = $"Click each button to bind a key";
+        }
 
-                var keyStr = segatools.Read("cell" + i, "slider");
+        private void bKeyButton_Click(object sender, EventArgs e) {
+            currAir = Convert.ToInt32(((Control)sender).Name.Substring(10));
+            if (currButton != null) currButton.KeyDown -= RebindKeyHandler;
+            currButton = ((Button)sender);
+            var padsKey = keyMappings[currAir];
+            lInfo.Text = $"Press a key to bind pad {currAir} (Esc to cancel)";
+            currButton.KeyDown += RebindKeyHandler;
+        }
+
+        private void AirConfigWindow_Load(object sender, EventArgs e) {
+            //generate the buttons on load
+            segatools = new IniFile("segatools.ini");
+            var currLocX = 0;
+            var currLocY = 0;            
+            for (int i = 1; i <= 6; i++) {
+                Keys currMapping;
+                var keyStr = segatools.Read("ir" + i, "io3");
                 if (String.IsNullOrWhiteSpace(keyStr)) {
-                    if (i >= 1 && i <= 4) 
-                        currMapping = Keys.L;
-                    else if (i >= 5 && i <= 8)
-                        currMapping = Keys.K;
-                    else if (i >= 9 && i <= 12)
-                        currMapping = Keys.J;
-                    else if (i >= 13 && i <= 16)
-                        currMapping = Keys.H;
-                    else if (i >= 17 && i <= 20)
-                        currMapping = Keys.G;
-                    else if (i >= 21 && i <= 24)
-                        currMapping = Keys.F;
-                    else if (i >= 25 && i <= 28)
-                        currMapping = Keys.D;
-                    else
-                        currMapping = Keys.S;
+                    switch (i) {
+                        case 1: currMapping = Keys.OemQuestion; break;
+                        case 2: currMapping = Keys.OemPeriod; break;
+                        case 3: currMapping = Keys.OemQuotes; break;
+                        case 4: currMapping = Keys.Oem1; break;
+                        case 5: currMapping = Keys.OemOpenBrackets; break;
+                        default: currMapping = Keys.Oem6; break;
+                    }
                 } else {
                     var keyInt = Convert.ToInt32(keyStr, 16);
                     currMapping = (Keys)keyInt;
                 }
                 keyMappings.Add(currMapping);
-
                 var newB = new Button();
-                newB.Name = "bKeyButton" + i;
+                newB.Name = "bAirButton" + i;
                 newB.BackColor = Color.LightCoral;
                 newB.FlatStyle = FlatStyle.Standard;
                 newB.Font = new Font(newB.Font.FontFamily, 10, FontStyle.Bold);
@@ -123,38 +133,10 @@ namespace ChuniLaunch {
                 newB.Parent = pIndicators;
                 newB.Location = new Point(currLocX, currLocY);
                 newB.Click += bKeyButton_Click;
-                newB.KeyDown += SliderConfigWindow_KeyDown;
-                newB.KeyUp += SliderConfigWindow_KeyUp;
-                if (i % 2 == 0) { //top row
-                    currLocY = BUTTON_HEIGHT;
-                } else {
-                    currLocX += BUTTON_WIDTH;
-                    currLocY = 0;
-                }
-            }
-            keyMappings.Reverse(); //we put them in starting at 0, so let's reverse the list to match up with the actual order.
-        }
+                newB.KeyDown += AirConfigWindow_KeyDown;
+                newB.KeyUp += AirConfigWindow_KeyUp;
+                currLocX += BUTTON_WIDTH;
 
-        private void bDone_Click(object sender, EventArgs e) {
-            for(int i = 0; i <= 31; i++) {
-                var hexkey = $"0x{keyMappings[i]:X}";
-                segatools.Write("cell" + (i+1), hexkey, "slider");
-            }
-        }
-
-        private void SliderConfigWindow_KeyDown(object sender, KeyEventArgs e) {
-            for (int i = 0; i <= 31; i++) {
-                if (keyMappings[i] == e.KeyCode) {
-                    ((Button)pIndicators.Controls[31 - i]).BackColor = Color.LightGreen;
-                }
-            }
-        }
-
-        private void SliderConfigWindow_KeyUp(object sender, KeyEventArgs e) {
-            for (int i = 0; i <= 31; i++) {
-                if (keyMappings[i] == e.KeyCode) {
-                    ((Button)pIndicators.Controls[31 - i]).BackColor = Color.LightCoral;
-                }
             }
         }
     }

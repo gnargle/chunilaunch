@@ -75,7 +75,7 @@ namespace ChuniLaunch {
             this.MinimizeBox = false;
             this.Name = "SliderConfigWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Slider Key config";
+            this.Text = "Slider Key Config";
             this.Load += new System.EventHandler(this.SliderConfigWindow_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SliderConfigWindow_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SliderConfigWindow_KeyUp);

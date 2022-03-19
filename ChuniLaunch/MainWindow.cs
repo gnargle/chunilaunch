@@ -293,6 +293,8 @@ namespace ChuniLaunch {
 
         private void bConfigureIRKeys_Click(object sender, EventArgs e) {
             //pop up a window to allow config of the 6 IR keys
+            var configWind = new AirConfigWindow(chusan);
+            configWind.ShowDialog();
         }
     }
 }
