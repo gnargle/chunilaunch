@@ -69,11 +69,19 @@ namespace ChuniLaunch {
             this.bLaunch = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.bSliderConfig = new System.Windows.Forms.Button();
+            this.bConfigureIRKeys = new System.Windows.Forms.Button();
+            this.flpAime = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpSlider = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpOther = new System.Windows.Forms.FlowLayoutPanel();
             this.flpMain.SuspendLayout();
             this.flpRemote.SuspendLayout();
             this.flpLocal.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.flpAime.SuspendLayout();
+            this.flpSlider.SuspendLayout();
+            this.flpOther.SuspendLayout();
             this.SuspendLayout();
             // 
             // rbRemoteProfile
@@ -110,7 +118,7 @@ namespace ChuniLaunch {
             this.flpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpMain.Location = new System.Drawing.Point(0, 0);
             this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(484, 409);
+            this.flpMain.Size = new System.Drawing.Size(484, 492);
             this.flpMain.TabIndex = 1;
             // 
             // label12
@@ -377,18 +385,12 @@ namespace ChuniLaunch {
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.label10);
-            this.flowLayoutPanel1.Controls.Add(this.cbWindowedMode);
-            this.flowLayoutPanel1.Controls.Add(this.cbBorderless);
-            this.flowLayoutPanel1.Controls.Add(this.cbEnableChunitachi);
-            this.flowLayoutPanel1.Controls.Add(this.cbEnableSliderEmu);
-            this.flowLayoutPanel1.Controls.Add(this.bTestACSlider);
-            this.flowLayoutPanel1.Controls.Add(this.label11);
-            this.flowLayoutPanel1.Controls.Add(this.cbLEDPort);
-            this.flowLayoutPanel1.Controls.Add(this.cbAimeEmulation);
-            this.flowLayoutPanel1.Controls.Add(this.bTestAimeReader);
+            this.flowLayoutPanel1.Controls.Add(this.flpSlider);
+            this.flowLayoutPanel1.Controls.Add(this.flpAime);
+            this.flowLayoutPanel1.Controls.Add(this.flpOther);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 275);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(469, 79);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(469, 159);
             this.flowLayoutPanel1.TabIndex = 20;
             // 
             // label10
@@ -404,7 +406,7 @@ namespace ChuniLaunch {
             // cbWindowedMode
             // 
             this.cbWindowedMode.AutoSize = true;
-            this.cbWindowedMode.Location = new System.Drawing.Point(139, 3);
+            this.cbWindowedMode.Location = new System.Drawing.Point(3, 3);
             this.cbWindowedMode.Name = "cbWindowedMode";
             this.cbWindowedMode.Size = new System.Drawing.Size(107, 17);
             this.cbWindowedMode.TabIndex = 5;
@@ -415,7 +417,7 @@ namespace ChuniLaunch {
             // cbBorderless
             // 
             this.cbBorderless.AutoSize = true;
-            this.cbBorderless.Location = new System.Drawing.Point(252, 3);
+            this.cbBorderless.Location = new System.Drawing.Point(116, 3);
             this.cbBorderless.Name = "cbBorderless";
             this.cbBorderless.Size = new System.Drawing.Size(75, 17);
             this.cbBorderless.TabIndex = 27;
@@ -426,7 +428,7 @@ namespace ChuniLaunch {
             // cbEnableChunitachi
             // 
             this.cbEnableChunitachi.AutoSize = true;
-            this.cbEnableChunitachi.Location = new System.Drawing.Point(333, 3);
+            this.cbEnableChunitachi.Location = new System.Drawing.Point(197, 3);
             this.cbEnableChunitachi.Name = "cbEnableChunitachi";
             this.cbEnableChunitachi.Size = new System.Drawing.Size(112, 17);
             this.cbEnableChunitachi.TabIndex = 19;
@@ -437,7 +439,7 @@ namespace ChuniLaunch {
             // cbEnableSliderEmu
             // 
             this.cbEnableSliderEmu.AutoSize = true;
-            this.cbEnableSliderEmu.Location = new System.Drawing.Point(3, 26);
+            this.cbEnableSliderEmu.Location = new System.Drawing.Point(3, 3);
             this.cbEnableSliderEmu.Name = "cbEnableSliderEmu";
             this.cbEnableSliderEmu.Size = new System.Drawing.Size(137, 17);
             this.cbEnableSliderEmu.TabIndex = 21;
@@ -447,7 +449,7 @@ namespace ChuniLaunch {
             // 
             // bTestACSlider
             // 
-            this.bTestACSlider.Location = new System.Drawing.Point(146, 26);
+            this.bTestACSlider.Location = new System.Drawing.Point(146, 3);
             this.bTestACSlider.Name = "bTestACSlider";
             this.bTestACSlider.Size = new System.Drawing.Size(88, 23);
             this.bTestACSlider.TabIndex = 22;
@@ -458,7 +460,7 @@ namespace ChuniLaunch {
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(240, 23);
+            this.label11.Location = new System.Drawing.Point(172, 23);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(50, 13);
             this.label11.TabIndex = 23;
@@ -468,7 +470,7 @@ namespace ChuniLaunch {
             // 
             this.cbLEDPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLEDPort.FormattingEnabled = true;
-            this.cbLEDPort.Location = new System.Drawing.Point(296, 26);
+            this.cbLEDPort.Location = new System.Drawing.Point(228, 26);
             this.cbLEDPort.Name = "cbLEDPort";
             this.cbLEDPort.Size = new System.Drawing.Size(121, 21);
             this.cbLEDPort.TabIndex = 24;
@@ -477,7 +479,7 @@ namespace ChuniLaunch {
             // cbAimeEmulation
             // 
             this.cbAimeEmulation.AutoSize = true;
-            this.cbAimeEmulation.Location = new System.Drawing.Point(3, 55);
+            this.cbAimeEmulation.Location = new System.Drawing.Point(3, 3);
             this.cbAimeEmulation.Name = "cbAimeEmulation";
             this.cbAimeEmulation.Size = new System.Drawing.Size(172, 17);
             this.cbAimeEmulation.TabIndex = 25;
@@ -487,7 +489,7 @@ namespace ChuniLaunch {
             // 
             // bTestAimeReader
             // 
-            this.bTestAimeReader.Location = new System.Drawing.Point(181, 55);
+            this.bTestAimeReader.Location = new System.Drawing.Point(181, 3);
             this.bTestAimeReader.Name = "bTestAimeReader";
             this.bTestAimeReader.Size = new System.Drawing.Size(88, 23);
             this.bTestAimeReader.TabIndex = 26;
@@ -497,7 +499,7 @@ namespace ChuniLaunch {
             // 
             // bLaunch
             // 
-            this.bLaunch.Location = new System.Drawing.Point(3, 360);
+            this.bLaunch.Location = new System.Drawing.Point(3, 440);
             this.bLaunch.Name = "bLaunch";
             this.bLaunch.Size = new System.Drawing.Size(476, 44);
             this.bLaunch.TabIndex = 2;
@@ -510,11 +512,63 @@ namespace ChuniLaunch {
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Batch Files|*.bat|All files| *.*";
             // 
+            // bSliderConfig
+            // 
+            this.bSliderConfig.Location = new System.Drawing.Point(240, 3);
+            this.bSliderConfig.Name = "bSliderConfig";
+            this.bSliderConfig.Size = new System.Drawing.Size(156, 23);
+            this.bSliderConfig.TabIndex = 28;
+            this.bSliderConfig.Text = "Configure Slider Keys";
+            this.bSliderConfig.UseVisualStyleBackColor = true;
+            this.bSliderConfig.Click += new System.EventHandler(this.bSliderConfig_Click);
+            // 
+            // bConfigureIRKeys
+            // 
+            this.bConfigureIRKeys.Location = new System.Drawing.Point(3, 26);
+            this.bConfigureIRKeys.Name = "bConfigureIRKeys";
+            this.bConfigureIRKeys.Size = new System.Drawing.Size(163, 23);
+            this.bConfigureIRKeys.TabIndex = 29;
+            this.bConfigureIRKeys.Text = "Configure IR Keys";
+            this.bConfigureIRKeys.UseVisualStyleBackColor = true;
+            this.bConfigureIRKeys.Click += new System.EventHandler(this.bConfigureIRKeys_Click);
+            // 
+            // flpAime
+            // 
+            this.flpAime.Controls.Add(this.cbAimeEmulation);
+            this.flpAime.Controls.Add(this.bTestAimeReader);
+            this.flpAime.Location = new System.Drawing.Point(3, 56);
+            this.flpAime.Name = "flpAime";
+            this.flpAime.Size = new System.Drawing.Size(453, 30);
+            this.flpAime.TabIndex = 30;
+            // 
+            // flpSlider
+            // 
+            this.flpSlider.Controls.Add(this.cbEnableSliderEmu);
+            this.flpSlider.Controls.Add(this.bTestACSlider);
+            this.flpSlider.Controls.Add(this.bSliderConfig);
+            this.flpSlider.Location = new System.Drawing.Point(3, 20);
+            this.flpSlider.Name = "flpSlider";
+            this.flpSlider.Size = new System.Drawing.Size(453, 30);
+            this.flpSlider.TabIndex = 31;
+            // 
+            // flpOther
+            // 
+            this.flpOther.Controls.Add(this.cbWindowedMode);
+            this.flpOther.Controls.Add(this.cbBorderless);
+            this.flpOther.Controls.Add(this.cbEnableChunitachi);
+            this.flpOther.Controls.Add(this.bConfigureIRKeys);
+            this.flpOther.Controls.Add(this.label11);
+            this.flpOther.Controls.Add(this.cbLEDPort);
+            this.flpOther.Location = new System.Drawing.Point(3, 92);
+            this.flpOther.Name = "flpOther";
+            this.flpOther.Size = new System.Drawing.Size(453, 57);
+            this.flpOther.TabIndex = 32;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 409);
+            this.ClientSize = new System.Drawing.Size(484, 492);
             this.Controls.Add(this.flpMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -532,6 +586,12 @@ namespace ChuniLaunch {
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.flpAime.ResumeLayout(false);
+            this.flpAime.PerformLayout();
+            this.flpSlider.ResumeLayout(false);
+            this.flpSlider.PerformLayout();
+            this.flpOther.ResumeLayout(false);
+            this.flpOther.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -581,6 +641,11 @@ namespace ChuniLaunch {
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbChuniVersion;
         private System.Windows.Forms.CheckBox cbBorderless;
+        private System.Windows.Forms.Button bSliderConfig;
+        private System.Windows.Forms.Button bConfigureIRKeys;
+        private System.Windows.Forms.FlowLayoutPanel flpSlider;
+        private System.Windows.Forms.FlowLayoutPanel flpAime;
+        private System.Windows.Forms.FlowLayoutPanel flpOther;
     }
 }
 

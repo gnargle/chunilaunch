@@ -26,3 +26,4 @@ E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.pdb
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.MainWindow.resources
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.SliderTestWindow.resources
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.AimeTestWindow.resources
+E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.SliderConfigWindow.resources

@@ -60,7 +60,11 @@ namespace ChuniLaunch {
             cbBorderless.Checked = CheckIniBool("borderless");
             cbEnableChunitachi.Checked = CheckIniBool("chunitachi");
             cbEnableSliderEmu.Checked = CheckIniBool("slideremu");
+            bTestACSlider.Enabled = !cbEnableSliderEmu.Checked;
+            bSliderConfig.Enabled = cbEnableSliderEmu.Checked;
+
             cbAimeEmulation.Checked = CheckIniBool("aimeemu");
+            bTestAimeReader.Enabled = !cbAimeEmulation.Checked;
 
             cbRemoteServ1.Checked = CheckIniBool("remoteserv1");
             cbRemoteServ2.Checked = CheckIniBool("remoteserv2");
@@ -217,6 +221,7 @@ namespace ChuniLaunch {
                 ini.Write("slideremu", cbEnableSliderEmu.Checked ? "1" : "0");
             }
             bTestACSlider.Enabled = !cbEnableSliderEmu.Checked;
+            bSliderConfig.Enabled = cbEnableSliderEmu.Checked;
         }
 
         private void cbLEDPort_SelectedIndexChanged(object sender, EventArgs e) {
@@ -278,6 +283,16 @@ namespace ChuniLaunch {
                 remoteServerAddress = tbRemoteAddress.Text;
                 localServerAddress = tbLocalAddress.Text;
             }
+        }
+
+        private void bSliderConfig_Click(object sender, EventArgs e) {
+            //pop up a window to allow config of all 32 slider keys
+            var configWind = new SliderConfigWindow(chusan);
+            configWind.ShowDialog();
+        }
+
+        private void bConfigureIRKeys_Click(object sender, EventArgs e) {
+            //pop up a window to allow config of the 6 IR keys
         }
     }
 }
