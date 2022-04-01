@@ -13,6 +13,8 @@ namespace ChuniLaunch {
         private bool rainbowDir = true;
         private bool _chusan;
 
+        private DateTime lastPoll;
+
         private const byte AIME_ESCAPE = 0xd0;
         private const byte RESET_CMD = 0x62;
         private const byte LED_CMD = 0x81;
@@ -148,7 +150,7 @@ namespace ChuniLaunch {
             SendCommand(UNK_1, RESET_CMD, new byte[] { 0x00 });
             var returnedCom = ReadSerial();
 
-            if (returnedCom.command == RESET_CMD && returnedCom.data.SequenceEqual(new byte[] { 0x03, 0x00 })) { //reset is ok response
+            if (returnedCom.command == RESET_CMD && (returnedCom.data.SequenceEqual(new byte[] { 0x03, 0x00 })) || (returnedCom.data.SequenceEqual(new byte[] { 0x00, 0x00 }))) { //reset is ok response. 
                 progress.Report("Reset OK");
             } else {
                 progress.Report("Reset not OK");
@@ -169,24 +171,27 @@ namespace ChuniLaunch {
             else
                 currCol--;
             if (currCol == 31 || currCol == 0) rainbowDir = !rainbowDir;
+            System.Threading.Thread.Sleep(50);
         }
 
-
-        private void ReadCard(IProgress<string> progress) {
+        private bool AimePoll(IProgress<string> progress) {
+            if ((DateTime.Now - lastPoll).TotalMilliseconds < 500)
+                return false;
             //seemingly relevant commands - 40,41,42.        
             //command 42, data 00            
+            lastPoll = DateTime.Now;
             SendCommand(UNK_1, FELICA_CMD, new byte[] { 0x00 });
             var resp = ReadSerial();
             if (resp.command == FELICA_CMD && resp.data.Length > 4) {
                 //card of some type 1 found, read card data and talk to reader.
-                
+
                 //first five bytes are something else, then you have 8 bytes which are the cards Identifier.
                 var cardId = resp.data.Skip(5).Take(8).ToArray();
                 var cardStr = BitConverter.ToString(cardId).Replace("-", string.Empty);
                 progress.Report($"Card Found!\n\rCard ID: {cardStr}");
                 SendLED(0, 0, 0xff);
                 System.Threading.Thread.Sleep(1000);
-                return;
+                return true;
             }
             //command 41, data 00
             SendCommand(UNK_1, UNK_CARD_CMD_2, new byte[] { 0x00 });
@@ -196,7 +201,7 @@ namespace ChuniLaunch {
                 progress.Report("Card Found!");
                 SendLED(0, 0, 0xff);
                 System.Threading.Thread.Sleep(1000);
-                return;
+                return true;
             }
             //data seems to send command 40, then data 01 03.
             SendCommand(UNK_1, UNK_CARD_CMD_1, new byte[] { 0x01, 0x03 });
@@ -206,11 +211,17 @@ namespace ChuniLaunch {
                 progress.Report("Card Found!");
                 SendLED(0, 0, 0xff);
                 System.Threading.Thread.Sleep(1000);
-                return;
+                return true;
             }
-            progress.Report("Card not found.");
-            LEDRainbow();
-            System.Threading.Thread.Sleep(500); //pause or we don't get the data
+            return false;
+        }
+
+
+        private void ReadCard(IProgress<string> progress) {
+            if (!AimePoll(progress)) {
+                progress.Report("Card not found.");
+                LEDRainbow();
+            }
             //and repeat
             //this appears to be checking for 3 different types of cards. 
             //each of these commands appears to have a unique unk, which I guess is a secondary command byte...
@@ -256,6 +267,7 @@ namespace ChuniLaunch {
             serialPort.Open();
             if (ReaderInit(progress)) {
                 LEDTest(progress);
+                lastPoll = DateTime.Now;
                 while (active) {
                     ReadCard(progress); 
                 }
