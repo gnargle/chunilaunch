@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="chunithm.ico" />
+    <EmbeddedResource Include="ZZupdater0.exe" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
