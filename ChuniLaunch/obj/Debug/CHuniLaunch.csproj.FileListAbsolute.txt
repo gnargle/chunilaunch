@@ -28,3 +28,4 @@ E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.SliderTest
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.AimeTestWindow.resources
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.SliderConfigWindow.resources
 E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.AirConfigWindow.resources
+E:\HDD Documents\GitHub\chunilaunch\ChuniLaunch\obj\Debug\ChuniLaunch.csproj.SuggestedBindingRedirects.cache

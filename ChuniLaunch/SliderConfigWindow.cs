@@ -39,7 +39,6 @@ namespace ChuniLaunch {
             currPad = Convert.ToInt32(((Control)sender).Name.Substring(10));
             if (currButton != null) currButton.KeyDown -= RebindKeyHandler;
             currButton = ((Button)sender);
-            var padsKey = keyMappings[currPad];
             lInfo.Text = $"Press a key to bind pad {currPad} (Esc to cancel)";
             currButton.KeyDown += RebindKeyHandler;
         }
